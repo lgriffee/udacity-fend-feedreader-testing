@@ -29,18 +29,25 @@ $(function() {
     });
 
     describe('The menu', function() {
+      const body = document.querySelector('body');
 
         // Ensure menu element is hidden by default
          it('is hidden by default', function() {
-           const body = document.querySelector('body');
              expect(body.classList.contains('menu-hidden')).toBeTruthy();
          });
 
-         /* TODO: Write a test that ensures the menu changes
-          * visibility when the menu icon is clicked. This test
-          * should have two expectations: does the menu display when
-          * clicked and does it hide when clicked again.
-          */
+         // Ensures the menu changes visibility when the menu icon is clicked
+          it('changes visibility when clicked', function() {
+            const menuIcon = document.querySelector('.icon-list');
+
+            // Does the menu display when clicked
+            menuIcon.click();
+            expect(body.classList.contains('menu-hidden')).toBeFalsy();
+
+            // Does the menu hide when clicked again
+            menuIcon.click();
+            expect(body.classList.contains('menu-hidden')).toBeTruthy();
+          });
     });
 
     /* TODO: Write a new test suite named "Initial Entries" */
