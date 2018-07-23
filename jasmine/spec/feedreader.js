@@ -30,16 +30,20 @@ $(function() {
 
     describe('The Menu', function() {
       const body = document.querySelector('body');
+      const menuIcon = document.querySelector('.icon-list');
 
-        // Ensure menu element is hidden by default
+        // Ensure menu element is defined & hidden by default
          it('is hidden by default', function() {
+             // Error handling for undefined variables
+             expect(document.querySelector('.menu-icon-link')).toBeDefined();
+             expect(menuIcon).toBeDefined();
+             expect(body.classList.contains('menu-hidden')).toBeDefined();
+             // Make sure menu is hidden by default
              expect(body.classList.contains('menu-hidden')).toBeTruthy();
          });
 
          // Ensures the menu changes visibility when the menu icon is clicked
           it('changes visibility when clicked', function() {
-            const menuIcon = document.querySelector('.icon-list');
-
             // Does the menu display when clicked
             menuIcon.click();
             expect(body.classList.contains('menu-hidden')).toBeFalsy();
@@ -58,6 +62,11 @@ $(function() {
 
       //Ensure there is at least one .entry element within the .feed container
       it('have at least one element', function(done) {
+        // Error handling for out-of-bound array access
+         expect(allFeeds[0]).toBeDefined();
+         // Error handling for undefined variables
+         expect(document.querySelector('.feed').children).toBeDefined();
+         // Make sure there is an entry
          expect((document.querySelector('.feed').children).length).toBeGreaterThan(0);
          done();
       });
@@ -84,7 +93,13 @@ $(function() {
 
       //Ensures when a new feed is loaded that the content actually changes
       it('content actually changes', function(done) {
-        // Make sure content is not the same
+        // Error handling for out-of-bound array access
+         expect(allFeeds[0]).toBeDefined();
+         expect(allFeeds[1]).toBeDefined();
+         // Error handling for undefined variables
+         expect(firstFeedContent).toBeDefined();
+         expect(secondFeedContent).toBeDefined();
+         // Make sure content is not the same
          expect(firstFeedContent).not.toBe(secondFeedContent);
          done();
       });
