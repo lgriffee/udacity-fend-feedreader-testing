@@ -28,7 +28,7 @@ $(function() {
          });
     });
 
-    describe('The menu', function() {
+    describe('The Menu', function() {
       const body = document.querySelector('body');
 
         // Ensure menu element is hidden by default
@@ -50,23 +50,43 @@ $(function() {
           });
     });
 
-    describe('Initial entries', function() {
-         // Make sure loadFeed function is called/completes its work
-         beforeEach(function(done){
-           loadFeed(0, done);
-         });
+    describe('Initial Entries', function() {
+      // Make sure loadFeed function is called/completes its work
+      beforeEach(function(done){
+        loadFeed(0, done);
+      });
 
-         //Ensure there is at least a single .entry element within the .feed container
-         it('have at least one element', function(done) {
-            expect((document.querySelector('.feed').children).length).toBeGreaterThan(0);
-            done();
-         });
+      //Ensure there is at least one .entry element within the .feed container
+      it('have at least one element', function(done) {
+         expect((document.querySelector('.feed').children).length).toBeGreaterThan(0);
+         done();
+      });
     });
 
-    /* TODO: Write a new test suite named "New Feed Selection" */
 
-        /* TODO: Write a test that ensures when a new feed is loaded
-         * by the loadFeed function that the content actually changes.
-         * Remember, loadFeed() is asynchronous.
-         */
+
+    describe('New Feed Selection', function() {
+      let firstFeedContent;
+      let secondFeedContent;
+
+      // Make sure loadFeed function is called/completes its work
+      beforeEach(function(done){
+        // Load and save the first feed's content
+        loadFeed(0, function() {
+          firstFeedContent = document.querySelector('.feed').innerHTML;
+          // Load and save the second feed's content
+          loadFeed(1, function() {
+            secondFeedContent = document.querySelector('.feed').innerHTML;
+            done();
+          });
+        });
+      });
+
+      //Ensures when a new feed is loaded that the content actually changes
+      it('content actually changes', function(done) {
+        // Make sure content is not the same
+         expect(firstFeedContent).not.toBe(secondFeedContent);
+         done();
+      });
+    });
 }());
